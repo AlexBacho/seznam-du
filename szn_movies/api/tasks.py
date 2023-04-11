@@ -1,3 +1,5 @@
+import json
+
 from aiohttp import ClientSession
 from asyncio import sleep
 
@@ -14,5 +16,5 @@ async def update_movie_list():
         async with ClientSession() as s:
             async with s.get(constants.MOVIE_LIST_URL) as resp:
                 movies = await resp.text()
-                db.update_movie_list(movies)
+                db.update_movie_list(json.loads(movies))
         await sleep(constants.MOVIE_UPDATE_PERIOD)
