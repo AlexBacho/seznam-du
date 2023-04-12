@@ -15,6 +15,7 @@
     <br>
     {% for movie in movies %}
         <h1>{{ movie['name'] }}</h1>
+        <img src="{{ movie['iconUri'] }}" alt="{{ movie['name'] }} Icon" style="width:128px;height:128px;">
     {% endfor %}
 </body>
 </html>
