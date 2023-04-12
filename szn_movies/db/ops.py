@@ -1,5 +1,3 @@
-import json
-
 from .session import session
 from .models import Movies
 
@@ -13,9 +11,10 @@ def update_movie_list(s, movies):
     s.query(Movies).delete()
     movies = [Movies(**m) for m in movies]
     s.add_all(movies)
+    print(f"Updated {len(movies)} movies in DB.")
 
 
 @session
 def get_movies(s):
-    resp = s.query(Movies).all()
-    return json.load(resp)
+    movies = s.query(Movies).all()
+    return [dict(m.__dict__) for m in movies]

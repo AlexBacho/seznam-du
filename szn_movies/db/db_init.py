@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from ..core import constants
 from .models import BaseModel
 
-engine = create_engine(constants.DB_NAME, echo=True)
+engine = create_engine(constants.DB_NAME)
 
 
 def init_db():
