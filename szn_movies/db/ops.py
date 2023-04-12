@@ -1,3 +1,5 @@
+from sqlalchemy import desc, asc
+
 from .session import session
 from .models import Movies
 
@@ -15,6 +17,14 @@ def update_movie_list(s, movies):
 
 
 @session
-def get_movies(s):
-    movies = s.query(Movies).all()
-    return [dict(m.__dict__) for m in movies]
+def get_movies(s, name_filter, desc_toggle):
+    movies = s.query(Movies)
+    if name_filter:
+        movies = movies.filter(Movies.name.contains(name_filter))
+
+    if desc_toggle:
+        movies = movies.order_by(desc(Movies.name))
+    else:
+        movies = movies.order_by(asc(Movies.name))
+
+    return [dict(m.__dict__) for m in movies.all()]

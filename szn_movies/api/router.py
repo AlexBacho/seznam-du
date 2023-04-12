@@ -10,6 +10,11 @@ templates = Jinja2Templates(directory=constants.TEMPLATE_DIR)
 
 
 @router.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    movies = tasks.get_movie_list()
-    return templates.TemplateResponse(constants.TEMPLATE_PATH, {"request": request, "movies": movies})
+async def read_root(request: Request, name_filter="", desc_toggle=False):
+    movies = tasks.get_movie_list(name_filter, desc_toggle)
+    return templates.TemplateResponse(constants.TEMPLATE_PATH, {
+        "request": request,
+        "movies": movies,
+        "name_filter": name_filter,
+        "desc_toggle": desc_toggle
+    })

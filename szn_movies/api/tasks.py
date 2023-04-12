@@ -7,11 +7,11 @@ from ..core import constants
 from ..db import ops as db
 
 
-def get_movie_list():
+def get_movie_list(name_filter, desc_toggle):
     # gets the movie list from db and cleans it up a bit for UI,
     # by splitting the main info from the rest
     ret = []
-    movies = db.get_movies()
+    movies = db.get_movies(name_filter, desc_toggle)
     for movie in movies:
         movie_data = {
             "name": movie["name"],
